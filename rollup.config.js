@@ -3,6 +3,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
+import postcss from "rollup-plugin-postcss";
 // import babel from "@rollup/plugin-babel";
 // import { terser } from "rollup-plugin-terser";
 
@@ -31,7 +32,7 @@ export default [
 			resolve(),
 			commonjs(),
 			typescript({ tsconfig: "./tsconfig.json" }),
-			// postcss(),
+			postcss(),
 		],
 	},
 	// Generate TypeScript declaration file
@@ -40,6 +41,7 @@ export default [
 		input: "dist/esm/index.d.ts", // Entry point of your ts code
 		output: [{ file: "dist/index.d.ts", format: "esm" }],
 		plugins: [dts()],
+		external: [/\.css$/], // To ignore .css files
 	},
 ];
 
